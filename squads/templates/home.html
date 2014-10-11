@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<div class="row">
+    <div class="col3">
+        <h2>Training log</h2>
+        <a>Add</a>
+        {% for session in sessions %}
+        {{ session }}
+        {% empty %}
+        <p>Nothing logged yet.</p>
+        {% endfor %}
+    </div>
+    <div class="col3">
+        <h2>Scores</h2>
+        <a>Add</a>
+        {% for score in scores %}
+        {{ score }}
+        {% empty %}
+        <p>Nothing shot yet.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

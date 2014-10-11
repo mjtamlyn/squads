@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>OUCofA Squads{% if title %} | {{ title }}{% endif %}</title>
+        <link rel="stylesheet" href="{{ STATIC_URL }}css/base.css" />
+        <link rel="stylesheet" href="{{ STATIC_URL }}select2/select2.css" />
+    </head>
+    <body>
+        <header>
+            <div class="container">
+                <h1>OUCofA squads</h1>
+                <p>{{ request.user.get_full_name }}</p>
+            </div>
+        </header>
+        <div class="container">
+            {% block content %}
+            {% endblock %}
+        </div>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        {% block scripts %}
+        {% endblock %}
+    </body>
+</html>

@@ -1,0 +1,12 @@
+Django==1.7
+dj-database-url==0.3.0
+django-braces==1.4.0
+django-debug-toolbar==1.2.1
+django-social-auth==0.7.28
+httplib2==0.9
+oauth2==1.5.211
+psycopg2==2.5.4
+python-openid==2.2.5
+six==1.8.0
+sqlparse==0.1.13
+wsgiref==0.1.2
