@@ -1,7 +1,7 @@
 import datetime
 
 from django.core.urlresolvers import reverse_lazy
-from django.views.generic import TemplateView, CreateView
+from django.views.generic import TemplateView, CreateView, UpdateView
 
 from braces.views import LoginRequiredMixin
 
@@ -32,3 +32,10 @@ class SessionAdd(LoginRequiredMixin, CreateView):
             date=datetime.date.today(),
         )
         return kwargs
+
+
+class SessionEdit(LoginRequiredMixin, UpdateView):
+    model = SessionLog
+    form_class = SessionLogForm
+    template_name = 'session_form.html'
+    success_url = reverse_lazy('home')

@@ -22,6 +22,7 @@
             {{ form.formset.management_form }}
             {% for inline in form.formset %}
             <div class="inline {% if forloop.last %}last{% endif %}">
+                {{ inline.id }}
                 <p class="right delete">
                     {{ inline.DELETE.label_tag }}
                     {{ inline.DELETE }}

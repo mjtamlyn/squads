@@ -151,6 +151,14 @@ a {
   content: "+ ";
 }
 
+.btn-delete {
+  background-color: #a83841;
+  border-color: #822b32;
+}
+.btn-delete:before {
+  content: "x ";
+}
+
 label {
   display: block;
   margin-bottom: 5px;

@@ -10,7 +10,10 @@
         </h2>
         {% for session in sessions %}
         <p class="session">
-            <a class="right btn">Edit</a>
+            <span class="right">
+                <a href="{% url 'session-edit' pk=session.pk %}"class="btn btn-edit">Edit</a>
+                <a class="btn btn-delete">Delete</a>
+            </span>
             <strong>{{ session.date }}</strong><br>
             {{ session.venue }}
             {% if session.arrows_shot %}
