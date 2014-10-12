@@ -17,7 +17,7 @@ class Home(LoginRequiredMixin, TemplateView):
         last_week = datetime.date.today() - datetime.timedelta(days=7)
         context['sessions'] = SessionLog.objects.filter(user=self.request.user
                 ).filter(date__gt=last_week).order_by('-date')
-        context['scores'] = Score.objects.filter(user=self.request.user).order_by('-date')[:10]
+        context['scores'] = Score.objects.filter(user=self.request.user).order_by('-date')[:5]
         return context
 
 
