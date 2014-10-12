@@ -1,0 +1,24 @@
+<h2>
+    Training log
+    <small class="right"><a href="{% url 'session-add' %}" class="btn btn-add">Add</a></small>
+</h2>
+{% for session in sessions %}
+    <p class="session">
+        <span class="right">
+            <a href="{% url 'session-edit' pk=session.pk %}" class="btn btn-edit">Edit</a>
+            <a href="{% url 'session-delete' pk=session.pk %}" class="btn btn-delete">Delete</a>
+        </span>
+        <strong>{{ session.date }}</strong><br>
+        {{ session.venue }}
+        {% if session.arrows_shot %}
+        - {{ session.arrows_shot }} arrows shot
+        {% endif %}
+        <br>
+        {% for section in session.sessionsection_set.all %}
+        {{ section.training_type }}: {{ section.time }} minutes<br>
+        {% endfor %}
+        {{ session.notes|linebreaksbr }}
+    </p>
+{% empty %}
+    <p>Nothing logged yet.</p>
+{% endfor %}

@@ -1,7 +1,7 @@
 import datetime
 
 from django.core.urlresolvers import reverse_lazy
-from django.views.generic import TemplateView, CreateView, UpdateView, DeleteView
+from django.views.generic import TemplateView, ListView, CreateView, UpdateView, DeleteView
 
 from braces.views import LoginRequiredMixin
 
@@ -14,9 +14,19 @@ class Home(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(Home, self).get_context_data(**kwargs)
-        context['sessions'] = SessionLog.objects.filter(user=self.request.user).order_by('-date')
+        last_week = datetime.date.today() - datetime.timedelta(days=7)
+        context['sessions'] = SessionLog.objects.filter(user=self.request.user
+                ).filter(date__gt=last_week).order_by('-date')
         context['scores'] = Score.objects.filter(user=self.request.user).order_by('-date')
         return context
+
+
+class SessionList(LoginRequiredMixin, ListView):
+    model = SessionLog
+    template_name = 'session_list.html'
+
+    def get_queryset(self):
+        return SessionLog.objects.filter(user=self.request.user).order_by('-date')
 
 
 class SessionAdd(LoginRequiredMixin, CreateView):

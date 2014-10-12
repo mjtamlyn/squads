@@ -25,9 +25,12 @@
             {% endfor %}
             {{ session.notes|linebreaksbr }}
         </p>
-        {% empty %}
-        <p>Nothing logged yet.</p>
         {% endfor %}
+        {% if sessions %}
+        <p><a href="{% url 'session-list' %}" class="btn right">View all</a></p>
+        {% else %}
+        <p>Nothing logged yet.</p>
+        {% endif %}
     </div>
     <div class="col3">
         <h2>
