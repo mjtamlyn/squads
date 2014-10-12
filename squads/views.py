@@ -6,7 +6,7 @@ from django.views.generic import TemplateView, ListView, CreateView, UpdateView,
 from braces.views import LoginRequiredMixin
 
 from .forms import ScoreForm, SessionLogForm
-from .models import Score, SessionLog
+from .models import Score, SessionLog, Squad
 
 
 class Home(LoginRequiredMixin, TemplateView):
@@ -19,6 +19,11 @@ class Home(LoginRequiredMixin, TemplateView):
                 ).filter(date__gt=last_week).order_by('-date')
         context['scores'] = Score.objects.filter(user=self.request.user).order_by('-date')[:5]
         return context
+
+
+class SquadList(LoginRequiredMixin, ListView):
+    model = Squad
+    template_name = 'squads.html'
 
 
 class SessionList(LoginRequiredMixin, ListView):

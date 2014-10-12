@@ -7,19 +7,14 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('squads', '0004_auto_20141012_0818'),
+        ('squads', '0001_initial'),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='score',
-            name='notes',
+            model_name='squad',
+            name='description',
             field=models.TextField(default=b'', blank=True),
             preserve_default=True,
-        ),
-        migrations.AlterField(
-            model_name='sessionsection',
-            name='time',
-            field=models.PositiveIntegerField(verbose_name=b'Time (in minutes)'),
         ),
     ]

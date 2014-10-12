@@ -1,5 +1,21 @@
 from django.conf import settings
+from django.contrib.auth.models import AbstractUser
 from django.db import models
+
+
+class Squad(models.Model):
+    name = models.CharField(max_length=200)
+    description = models.TextField(blank=True, default='')
+
+    def __unicode__(self):
+        return self.name
+
+
+class User(AbstractUser):
+    squad = models.ForeignKey(Squad, blank=True, null=True)
+
+    def uid(self):
+        return self.social_auth.get(provider='facebook').uid
 
 
 class TrainingCategory(models.Model):

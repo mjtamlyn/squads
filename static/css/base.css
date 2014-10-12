@@ -116,7 +116,7 @@ h1, h2, h3, h4, h5, h6 {
   *zoom: 1;
 }
 h1 small, h2 small, h3 small, h4 small, h5 small, h6 small {
-  color: #777777;
+  color: #444444;
   font-weight: normal;
   font-size: 70%;
   margin-top: 2px;
@@ -125,6 +125,18 @@ h1 small, h2 small, h3 small, h4 small, h5 small, h6 small {
 a {
   text-decoration: none;
   color: inherit;
+}
+
+ul {
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  display: block;
+  margin: 0;
+  padding: 0;
 }
 
 .btn {
@@ -199,6 +211,36 @@ textarea {
   resize: vertical;
 }
 
+nav {
+  background-color: #eeeeee;
+  border: 1px solid #cccccc;
+  color: #444444;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+  border-radius: 10px;
+  margin: 10px 0;
+  overflow: hidden;
+}
+nav ul {
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+nav li {
+  display: inline-block;
+  margin: 0;
+  border-right: 1px solid #cccccc;
+}
+nav li a {
+  display: block;
+  padding: 15px;
+}
+nav li a:hover, nav li a:active, nav li a.active {
+  background-color: #bfbfbf;
+}
+
 .session,
 .score {
   background-color: #eeeeee;
@@ -216,7 +258,7 @@ span.competition {
   font-size: 70%;
   background-color: #b2d7f3;
   border: 1px solid #86c0ec;
-  color: #777777;
+  color: #444444;
   padding: 3px 5px;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
@@ -236,4 +278,14 @@ span.competition {
 }
 .inline .delete label {
   display: inline;
+}
+
+.user-list li {
+  overflow: hidden;
+  *zoom: 1;
+  margin-bottom: 10px;
+}
+.user-list img {
+  float: left;
+  margin-right: 10px;
 }

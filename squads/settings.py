@@ -61,6 +61,8 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 
 
 # Apps
+AUTH_USER_MODEL = 'squads.User'
+SOCIAL_AUTH_USER_MODEL = 'squads.User'
 AUTHENTICATION_BACKENDS = (
     'social_auth.backends.facebook.FacebookBackend',
     'django.contrib.auth.backends.ModelBackend',

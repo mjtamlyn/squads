@@ -1,0 +1,26 @@
+nav
+  background-color: $light-grey
+  border: 1px solid $grey
+  color: $grey-text
+  +border-radius(10px)
+  margin: 10px 0
+  overflow: hidden
+
+  ul
+    display: block
+    margin: 0
+    padding: 0
+
+  li
+    display: inline-block
+    margin: 0
+    border-right: 1px solid $grey
+
+    a
+      display: block
+      padding: 15px
+
+      &:hover,
+      &:active,
+      &.active
+        background-color: darken($grey, 5%)
