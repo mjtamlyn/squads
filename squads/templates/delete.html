@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<div class="row">
+    <div class="col3">
+        <form method="POST" action="{{ request.get_full_path }}">
+            {% csrf_token %}
+            <p>Are you sure you want to delete {{ object }}?</p>
+            <input type="submit" class="btn btn-delete" value="Delete">
+        </form>
+    </div>
+</div>
+{% endblock %}

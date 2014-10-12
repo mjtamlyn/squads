@@ -1,7 +1,7 @@
 import datetime
 
 from django.core.urlresolvers import reverse_lazy
-from django.views.generic import TemplateView, CreateView, UpdateView
+from django.views.generic import TemplateView, CreateView, UpdateView, DeleteView
 
 from braces.views import LoginRequiredMixin
 
@@ -38,4 +38,10 @@ class SessionEdit(LoginRequiredMixin, UpdateView):
     model = SessionLog
     form_class = SessionLogForm
     template_name = 'session_form.html'
+    success_url = reverse_lazy('home')
+
+
+class SessionDelete(LoginRequiredMixin, DeleteView):
+    model = SessionLog
+    template_name = 'delete.html'
     success_url = reverse_lazy('home')

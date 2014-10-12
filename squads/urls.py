@@ -9,6 +9,7 @@ urlpatterns = patterns('',
 
     url('^sessions/add/$', views.SessionAdd.as_view(), name='session-add'),
     url('^sessions/(?P<pk>\d+)/$', views.SessionEdit.as_view(), name='session-edit'),
+    url('^sessions/(?P<pk>\d+)/delete/$', views.SessionDelete.as_view(), name='session-delete'),
 
     url('^admin/', include(admin.site.urls)),
     url('', include('social_auth.urls')),
