@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<form method="POST" action="{{ request.get_full_path }}">
+    {% csrf_token %}
+    <div class="row">
+        <div class="col3">
+            {{ form.as_p }}
+            <p class="right">
+                <input type="submit" class="btn" value="Save">
+            </p>
+        </div>
+    </div>
+</form>
+{% endblock %} 

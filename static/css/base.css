@@ -199,7 +199,8 @@ textarea {
   resize: vertical;
 }
 
-.session {
+.session,
+.score {
   background-color: #eeeeee;
   padding: 10px;
   -webkit-border-radius: 5px;
@@ -209,6 +210,19 @@ textarea {
   border-radius: 5px;
   line-height: 1.5em;
   margin: 10px 0;
+}
+
+span.competition {
+  font-size: 70%;
+  background-color: #b2d7f3;
+  border: 1px solid #86c0ec;
+  color: #777777;
+  padding: 3px 5px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
 }
 
 .inline {

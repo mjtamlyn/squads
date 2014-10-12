@@ -48,6 +48,7 @@ class Score(models.Model):
     shot_round = models.CharField(max_length=200)
     score = models.PositiveIntegerField()
     competition = models.BooleanField(default=False)
+    notes = models.TextField(blank=True, default='')
 
     def __unicode__(self):
         return '%s: %s' % (self.shot_round, self.score)

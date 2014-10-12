@@ -1,0 +1,20 @@
+<h2>
+    Scores
+    <small class="right"><a href="{% url 'score-add' %}" class="btn btn-add">Add</a></small>
+</h2>
+{% for score in scores %}
+<p class="score">
+    <span class="right">
+        <a href="{% url 'score-edit' pk=score.pk %}" class="btn btn-edit">Edit</a>
+        <a href="{% url 'score-delete' pk=score.pk %}" class="btn btn-delete">Delete</a>
+    </span>
+    <strong>{{ score.date }}</strong><br>
+    {% if score.competition %}
+    <span class="competition">Competition score</span><br>
+    {% endif %}
+    {{ score.shot_round }}: {{ score.score }}<br>
+    {{ score.notes|linebreaksbr }}
+</p>
+{% empty %}
+<p>Nothing shot yet.</p>
+{% endfor %}

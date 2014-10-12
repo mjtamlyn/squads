@@ -4,44 +4,16 @@
 {% block content %}
 <div class="row">
     <div class="col3">
-        <h2>
-            Training log
-            <small class="right"><a href="{% url 'session-add' %}" class="btn btn-add">Add</a></small>
-        </h2>
-        {% for session in sessions %}
-        <p class="session">
-            <span class="right">
-                <a href="{% url 'session-edit' pk=session.pk %}" class="btn btn-edit">Edit</a>
-                <a href="{% url 'session-delete' pk=session.pk %}" class="btn btn-delete">Delete</a>
-            </span>
-            <strong>{{ session.date }}</strong><br>
-            {{ session.venue }}
-            {% if session.arrows_shot %}
-            - {{ session.arrows_shot }} arrows shot
-            {% endif %}
-            <br>
-            {% for section in session.sessionsection_set.all %}
-            {{ section.training_type }}: {{ section.time }} minutes<br>
-            {% endfor %}
-            {{ session.notes|linebreaksbr }}
-        </p>
-        {% endfor %}
+        {% include 'sessions.html' %}
         {% if sessions %}
         <p><a href="{% url 'session-list' %}" class="btn right">View all</a></p>
-        {% else %}
-        <p>Nothing logged yet.</p>
         {% endif %}
     </div>
     <div class="col3">
-        <h2>
-            Scores
-            <small class="right"><a class="btn btn-add">Add</a></small>
-        </h2>
-        {% for score in scores %}
-        {{ score }}
-        {% empty %}
-        <p>Nothing shot yet.</p>
-        {% endfor %}
+        {% include 'scores.html' %}
+        {% if scores %}
+        <p><a href="{% url 'score-list' %}" class="btn right">View all</a></p>
+        {% endif %}
     </div>
 </div>
 {% endblock %}

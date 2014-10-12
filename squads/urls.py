@@ -12,6 +12,11 @@ urlpatterns = patterns('',
     url('^sessions/(?P<pk>\d+)/$', views.SessionEdit.as_view(), name='session-edit'),
     url('^sessions/(?P<pk>\d+)/delete/$', views.SessionDelete.as_view(), name='session-delete'),
 
+    url('^scores/$', views.ScoreList.as_view(), name='score-list'),
+    url('^scores/add/$', views.ScoreAdd.as_view(), name='score-add'),
+    url('^scores/(?P<pk>\d+)/$', views.ScoreEdit.as_view(), name='score-edit'),
+    url('^scores/(?P<pk>\d+)/delete/$', views.ScoreDelete.as_view(), name='score-delete'),
+
     url('^admin/', include(admin.site.urls)),
     url('', include('social_auth.urls')),
 )
