@@ -1,0 +1,18 @@
+.btn
+  border: 1px solid $oxford
+  background-color: lighten($oxford, 10%)
+  color: white
+  +border-radius(5px)
+  padding: 4px 7px
+  cursor: pointer
+  font-size: 75%
+  -webkit-tap-highlight-color: rgba(0,0,0,0)
+
+  &:hover,
+  &:active,
+  &.active
+    background-color: $oxford
+
+.btn-add
+  &:before
+    content: "+ "

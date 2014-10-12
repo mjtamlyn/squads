@@ -9,8 +9,10 @@
     <body>
         <header>
             <div class="container">
-                <h1>OUCofA squads</h1>
-                <p>{{ request.user.get_full_name }}</p>
+                <h1>
+                    OUCofA squads
+                    <small class="right">{{ request.user.get_full_name }}</small>
+                </h1>
             </div>
         </header>
         <div class="container">

@@ -63,6 +63,7 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 # Apps
 AUTHENTICATION_BACKENDS = (
     'social_auth.backends.facebook.FacebookBackend',
+    'django.contrib.auth.backends.ModelBackend',
 )
 FACEBOOK_APP_ID = '302914746566919'
 FACEBOOK_API_SECRET = '9ace9d9750b6f4ef0cf97d7345af6ec8'
