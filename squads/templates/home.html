@@ -6,10 +6,22 @@
     <div class="col3">
         <h2>
             Training log
-            <small class="right"><a class="btn btn-add">Add</a></small>
+            <small class="right"><a href="{% url 'session-add' %}" class="btn btn-add">Add</a></small>
         </h2>
         {% for session in sessions %}
-        {{ session }}
+        <p class="session">
+            <a class="right btn">Edit</a>
+            <strong>{{ session.date }}</strong><br>
+            {{ session.venue }}
+            {% if session.arrows_shot %}
+            - {{ session.arrows_shot }} arrows shot
+            {% endif %}
+            <br>
+            {% for section in session.sessionsection_set.all %}
+            {{ section.training_type }}: {{ section.time }} minutes<br>
+            {% endfor %}
+            {{ session.notes|linebreaksbr }}
+        </p>
         {% empty %}
         <p>Nothing logged yet.</p>
         {% endfor %}

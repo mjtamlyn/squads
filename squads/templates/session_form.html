@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+
+{% block scripts %}
+<script src="{{ STATIC_URL }}select2/select2.min.js"></script>
+<script type="text/javascript">
+    $(function() {
+        $('select').select2({width: '80%'});
+    });
+</script>
+{% endblock %}
+
+
+{% block content %}
+<form method="POST" action="{{ request.get_full_path }}">
+    {% csrf_token %}
+    <div class="row">
+        <div class="col3">
+        {{ form.as_p }}
+        </div>
+        <div class="col3">
+            {{ form.formset.management_form }}
+            {% for inline in form.formset %}
+            <div class="inline {% if forloop.last %}last{% endif %}">
+                <p class="right delete">
+                    {{ inline.DELETE.label_tag }}
+                    {{ inline.DELETE }}
+                </p>
+                <p class="{{ inline.training_type.css_classes }}">
+                    {{ inline.training_type.label_tag }}
+                    {{ inline.training_type }}
+                </p>
+                <p class="{{ inline.time.css_classes }}">
+                    {{ inline.time.label_tag }}
+                    {{ inline.time }}
+                </p>
+            </div>
+            {% endfor %}
+            <p class="right">
+                <input type="submit" class="btn" value="Save">
+            </p>
+        </div>
+    </div>
+</form>
+{% endblock %}

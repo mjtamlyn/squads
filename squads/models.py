@@ -14,6 +14,7 @@ class TrainingCategory(models.Model):
 
 
 class TrainingType(models.Model):
+    category = models.ForeignKey(TrainingCategory)
     name = models.CharField(max_length=200)
     description = models.TextField(blank=True, default='')
 
@@ -26,6 +27,7 @@ class SessionLog(models.Model):
     date = models.DateField()
     venue = models.CharField(max_length=200, default='OUCofA session')
     arrows_shot = models.PositiveIntegerField(blank=True, null=True)
+    notes = models.TextField(blank=True, default='')
 
     def __unicode__(self):
         return 'Session for %s on %s' % (self.user, self.date)
@@ -34,8 +36,7 @@ class SessionLog(models.Model):
 class SessionSection(models.Model):
     session = models.ForeignKey(SessionLog)
     training_type = models.ForeignKey(TrainingType)
-    time = models.PositiveIntegerField()
-    notes = models.TextField(blank=True, default='')
+    time = models.PositiveIntegerField('Time (in minutes)')
 
     def __unicode__(self):
         return '%s minutes on %s' % (self.time, self.training_type)

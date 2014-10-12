@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
     <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
         <title>OUCofA Squads{% if title %} | {{ title }}{% endif %}</title>
         <link rel="stylesheet" href="{{ STATIC_URL }}css/base.css" />
         <link rel="stylesheet" href="{{ STATIC_URL }}select2/select2.css" />
@@ -10,7 +10,7 @@
         <header>
             <div class="container">
                 <h1>
-                    OUCofA squads
+                    <a href="{% url 'home' %}">OUCofA squads</a>
                     <small class="right">{{ request.user.get_full_name }}</small>
                 </h1>
             </div>
