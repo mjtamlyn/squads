@@ -9,7 +9,7 @@
         {% for archer in squad.user_set.all %}
             <div class="archer {% if archer == user %}selected{% endif %}">
                 <a href="{% url 'user-history' pk=archer.pk %}">
-                    <img src="http://graph.facebook.com/v2.1/{{ user.uid }}/picture?height=100&width=100">
+                    <img src="http://graph.facebook.com/v2.1/{{ archer.uid }}/picture?height=100&width=100">
                     <span>{{ archer.get_full_name }}</span>
                 </a>
             </div>
