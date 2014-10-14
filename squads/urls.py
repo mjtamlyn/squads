@@ -19,6 +19,8 @@ urlpatterns = patterns('',
     url('^scores/(?P<pk>\d+)/$', views.ScoreEdit.as_view(), name='score-edit'),
     url('^scores/(?P<pk>\d+)/delete/$', views.ScoreDelete.as_view(), name='score-delete'),
 
+    url('^archers/(?P<pk>\d+)/$', views.UserHistory.as_view(), name='user-history'),
+
     url('^admin/', include(admin.site.urls)),
     url('', include('social_auth.urls')),
 )

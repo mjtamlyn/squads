@@ -297,3 +297,29 @@ span.competition {
   float: left;
   margin-right: 10px;
 }
+
+.archers {
+  margin: 0 -5px;
+}
+
+.archer {
+  display: inline-block;
+  text-align: center;
+  padding: 10px;
+  margin: 0 5px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+  border-radius: 10px;
+}
+.archer.selected {
+  background-color: #cccccc;
+}
+.archer img {
+  display: block;
+}
+.archer span {
+  display: block;
+  margin-top: 5px;
+}

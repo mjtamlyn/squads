@@ -1,12 +1,12 @@
 import datetime
 
 from django.core.urlresolvers import reverse_lazy
-from django.views.generic import TemplateView, ListView, CreateView, UpdateView, DeleteView
+from django.views.generic import TemplateView, ListView, DetailView, CreateView, UpdateView, DeleteView
 
-from braces.views import LoginRequiredMixin
+from braces.views import LoginRequiredMixin, StaffuserRequiredMixin
 
 from .forms import ScoreForm, SessionLogForm
-from .models import Score, SessionLog, Squad
+from .models import Score, SessionLog, Squad, User
 
 
 class Home(LoginRequiredMixin, TemplateView):
@@ -108,3 +108,13 @@ class ScoreDelete(LoginRequiredMixin, DeleteView):
 
     def get_queryset(self):
         return Score.objects.filter(user=self.request.user).order_by('-date')
+
+
+class UserHistory(LoginRequiredMixin, StaffuserRequiredMixin, DetailView):
+    model = User
+    template_name = 'history.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(UserHistory, self).get_context_data(**kwargs)
+        context['squad'] = context['user'].squad
+        return context

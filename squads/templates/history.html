@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<div class="row">
+    <div class="col6">
+        <h2>{{ squad }}</h2>
+        <div class="archers">
+        {% for archer in squad.user_set.all %}
+            <div class="archer {% if archer == user %}selected{% endif %}">
+                <a href="{% url 'user-history' pk=archer.pk %}">
+                    <img src="http://graph.facebook.com/v2.1/{{ user.uid }}/picture?height=100&width=100">
+                    <span>{{ archer.get_full_name }}</span>
+                </a>
+            </div>
+        {% endfor %}
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col3">
+        <h2>Coach notes</h2>
+    </div>
+    <div class="col3">
+        <h2>Videos</h2>
+    </div>
+</div>
+<div class="row">
+    <div class="col3">
+        {% include 'sessions.html' with sessions=user.sessionlog_set.all %}
+    </div>
+    <div class="col3">
+        {% include 'scores.html' with scores=user.score_set.all %}
+    </div>
+</div>
+{% endblock %}
