@@ -3,6 +3,7 @@ dj-database-url==0.3.0
 dj-static==0.0.6
 django-braces==1.4.0
 django-debug-toolbar==1.2.1
+django-embed-video==0.11
 django-social-auth==0.7.28
 gunicorn==19.1.1
 httplib2==0.9
@@ -10,6 +11,7 @@ newrelic==2.32.0.28
 oauth2==1.5.211
 psycopg2==2.5.4
 python-openid==2.2.5
+requests==2.4.3
 six==1.8.0
 sqlparse==0.1.13
 static3==0.5.1
