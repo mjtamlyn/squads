@@ -6,8 +6,8 @@ import dj_database_url
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
-SECRET_KEY = '!z1n!h^3w08)*qyveruss=smy80ef_h0-2pn_v)-=7*xlz)c96'
-DEBUG = True
+SECRET_KEY = os.environ.get('SECRET_KEY', 'monkeys')
+DEBUG = not (os.environ.get('DEBUG', '') == 'False')
 TEMPLATE_DEBUG = True
 ALLOWED_HOSTS = []
 
@@ -60,6 +60,15 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 
 
+# Email
+EMAIL_SUBJECT_PREFIX = '[OUCofA Squads] '
+DEFAULT_FROM_EMAIL = 'noreply@oucofa.co.uk'
+EMAIL_HOST = os.environ.get('EMAIL_HOST', 'localhost')
+EMAIL_HOST_USER = os.environ.get('SENDGRID_USERNAME', '')
+EMAIL_HOST_PASSWORD = os.environ.get('SENDGRID_PASSWORD', '')
+EMAIL_BACKEND = os.environ.get('EMAIL_BACKEND', 'django.core.mail.backends.console.EmailBackend')
+
+
 # Apps
 AUTH_USER_MODEL = 'squads.User'
 SOCIAL_AUTH_USER_MODEL = 'squads.User'
@@ -67,8 +76,8 @@ AUTHENTICATION_BACKENDS = (
     'social_auth.backends.facebook.FacebookBackend',
     'django.contrib.auth.backends.ModelBackend',
 )
-FACEBOOK_APP_ID = '302914746566919'
-FACEBOOK_API_SECRET = '9ace9d9750b6f4ef0cf97d7345af6ec8'
+FACEBOOK_APP_ID = os.environ.get('FACEBOOK_APP_ID', '302914746566919')
+FACEBOOK_API_SECRET = os.environ.get('FACEBOOK_SECRET', '9ace9d9750b6f4ef0cf97d7345af6ec8')
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
 LOGIN_URL = '/login/facebook/'
 LOGIN_REDIRECT_URL = '/'
