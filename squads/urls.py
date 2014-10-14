@@ -8,6 +8,7 @@ urlpatterns = patterns('',
     url('^$', views.Home.as_view(), name='home'),
 
     url('^squads/$', views.SquadList.as_view(), name='squads'),
+    url('^information/$', views.Information.as_view(), name='information'),
 
     url('^sessions/$', views.SessionList.as_view(), name='session-list'),
     url('^sessions/add/$', views.SessionAdd.as_view(), name='session-add'),

@@ -8,7 +8,7 @@ from django.views.generic import TemplateView, ListView, DetailView, CreateView,
 from braces.views import LoginRequiredMixin, StaffuserRequiredMixin
 
 from .forms import ScoreForm, SessionLogForm, CoachNoteForm, VideoForm
-from .models import Score, SessionLog, Squad, User, CoachNote, Video
+from .models import TrainingCategory, Score, SessionLog, Squad, User, CoachNote, Video
 
 
 class Home(LoginRequiredMixin, TemplateView):
@@ -22,6 +22,13 @@ class Home(LoginRequiredMixin, TemplateView):
         context['scores'] = Score.objects.filter(user=self.request.user).order_by('-date')[:5]
         context['videos'] = Video.objects.filter(subject=self.request.user).order_by('-date')[:3]
         return context
+
+
+class Information(LoginRequiredMixin, ListView):
+    template_name = 'information.html'
+
+    def get_queryset(self):
+        return TrainingCategory.objects.prefetch_related('trainingtype_set')
 
 
 class SquadList(LoginRequiredMixin, ListView):

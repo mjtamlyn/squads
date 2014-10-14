@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<div class="row">
+    {% for category in object_list %}
+    <div class="col2">
+        <h2>{{ category }}</h2>
+        <p>{{ category.description|linebreaksbr }}</p>
+        {% for training in category.trainingtype_set.all %}
+        <h3>{{ training }}</h3>
+        <p>{{ training.description|linebreaksbr }}</p>
+        {% endfor %}
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
