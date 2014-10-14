@@ -13,6 +13,9 @@ class Squad(models.Model):
     def __unicode__(self):
         return self.name
 
+    class Meta:
+        ordering = ['pk']
+
 
 class User(AbstractUser):
     squad = models.ForeignKey(Squad, blank=True, null=True)
@@ -30,6 +33,7 @@ class TrainingCategory(models.Model):
 
     class Meta:
         verbose_name_plural = 'training categories'
+        ordering = ['pk']
 
 
 class TrainingType(models.Model):
@@ -39,6 +43,9 @@ class TrainingType(models.Model):
 
     def __unicode__(self):
         return self.name
+
+    class Meta:
+        ordering = ['pk']
 
 
 class SessionLog(models.Model):
