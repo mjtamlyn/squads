@@ -19,7 +19,13 @@ urlpatterns = patterns('',
     url('^scores/(?P<pk>\d+)/$', views.ScoreEdit.as_view(), name='score-edit'),
     url('^scores/(?P<pk>\d+)/delete/$', views.ScoreDelete.as_view(), name='score-delete'),
 
+    url('^videos/$', views.VideoList.as_view(), name='video-list'),
+    url('^videos/add/$', views.VideoAdd.as_view(), name='video-add'),
+    url('^videos/(?P<pk>\d+)/$', views.VideoEdit.as_view(), name='video-edit'),
+    url('^videos/(?P<pk>\d+)/delete/$', views.VideoDelete.as_view(), name='video-delete'),
+
     url('^archers/(?P<pk>\d+)/$', views.UserHistory.as_view(), name='user-history'),
+    url('^archers/(?P<pk>\d+)/notes/add/$', views.CoachNoteAdd.as_view(), name='note-add'),
 
     url('^admin/', include(admin.site.urls)),
     url('', include('social_auth.urls')),

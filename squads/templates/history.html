@@ -19,18 +19,28 @@
 </div>
 <div class="row">
     <div class="col3">
-        <h2>Coach notes</h2>
+        <h2>
+            Coach notes
+            <small class="right"><a href="{% url 'note-add' pk=object.pk %}" class="btn btn-add">Add</a></small>
+        </h2>
+        {% for note in object.coachnote_set.all %}
+        <p class="note">
+            <img src="http://graph.facebook.com/v2.1/{{ note.author.uid }}/picture">
+            <small>{{ note.timestamp }}</small><br>
+            {{ note.content|linebreaksbr }}
+        </p>
+        {% endfor %}
     </div>
     <div class="col3">
-        <h2>Videos</h2>
+        {% include 'videos.html' with videos=object.video_set.all coach_mode=True %}
     </div>
 </div>
 <div class="row">
     <div class="col3">
-        {% include 'sessions.html' with sessions=object.sessionlog_set.all %}
+        {% include 'sessions.html' with sessions=object.sessionlog_set.all coach_mode=True %}
     </div>
     <div class="col3">
-        {% include 'scores.html' with scores=object.score_set.all %}
+        {% include 'scores.html' with scores=object.score_set.all coach_mode=True %}
     </div>
 </div>
 {% endblock %}

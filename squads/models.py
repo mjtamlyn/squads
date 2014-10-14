@@ -1,6 +1,9 @@
 from django.conf import settings
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.utils import timezone
+
+from embed_video.fields import EmbedVideoField
 
 
 class Squad(models.Model):
@@ -48,6 +51,9 @@ class SessionLog(models.Model):
     def __unicode__(self):
         return 'Session for %s on %s' % (self.user, self.date)
 
+    class Meta:
+        ordering = ['-date']
+
 
 class SessionSection(models.Model):
     session = models.ForeignKey(SessionLog)
@@ -68,3 +74,32 @@ class Score(models.Model):
 
     def __unicode__(self):
         return '%s: %s' % (self.shot_round, self.score)
+
+    class Meta:
+        ordering = ['-date']
+
+
+class CoachNote(models.Model):
+    subject = models.ForeignKey(User)
+    author = models.ForeignKey(User, related_name='+')
+    timestamp = models.DateTimeField(default=timezone.now)
+    content = models.TextField('Message')
+
+    def __unicode__(self):
+        return 'Notes on %s by %s' % (self.subject, self.author)
+
+    class Meta:
+        ordering = ['-timestamp']
+
+
+class Video(models.Model):
+    subject = models.ForeignKey(User)
+    date = models.DateField()
+    link = EmbedVideoField('Youtube link')
+    notes = models.TextField(blank=True, default='')
+
+    def __unicode__(self):
+        return 'Video of %s on %s' % (self.subject, self.date)
+
+    class Meta:
+        ordering = ['-date']

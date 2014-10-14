@@ -2,7 +2,7 @@ from django.db import transaction
 from django import forms
 from django.forms.models import inlineformset_factory
 
-from .models import Score, SessionLog, SessionSection
+from .models import Score, SessionLog, SessionSection, CoachNote, Video
 
 
 class SessionSectionForm(forms.ModelForm):
@@ -46,3 +46,21 @@ class ScoreForm(forms.ModelForm):
     class Meta:
         model = Score
         fields = ('date', 'shot_round', 'score', 'competition', 'notes')
+
+
+class CoachNoteForm(forms.ModelForm):
+    required_css_class = 'required'
+    error_css_class = 'error'
+
+    class Meta:
+        model = CoachNote
+        fields = ('content',)
+
+
+class VideoForm(forms.ModelForm):
+    required_css_class = 'required'
+    error_css_class = 'error'
+
+    class Meta:
+        model = Video
+        fields = ('date', 'link', 'notes')

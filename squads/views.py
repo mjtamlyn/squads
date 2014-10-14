@@ -1,12 +1,14 @@
 import datetime
 
-from django.core.urlresolvers import reverse_lazy
+from django.core.urlresolvers import reverse, reverse_lazy
+from django.shortcuts import get_object_or_404
+from django.utils import timezone
 from django.views.generic import TemplateView, ListView, DetailView, CreateView, UpdateView, DeleteView
 
 from braces.views import LoginRequiredMixin, StaffuserRequiredMixin
 
-from .forms import ScoreForm, SessionLogForm
-from .models import Score, SessionLog, Squad, User
+from .forms import ScoreForm, SessionLogForm, CoachNoteForm, VideoForm
+from .models import Score, SessionLog, Squad, User, CoachNote, Video
 
 
 class Home(LoginRequiredMixin, TemplateView):
@@ -18,6 +20,7 @@ class Home(LoginRequiredMixin, TemplateView):
         context['sessions'] = SessionLog.objects.filter(user=self.request.user
                 ).filter(date__gt=last_week).order_by('-date')
         context['scores'] = Score.objects.filter(user=self.request.user).order_by('-date')[:5]
+        context['videos'] = Video.objects.filter(subject=self.request.user).order_by('-date')[:3]
         return context
 
 
@@ -110,6 +113,48 @@ class ScoreDelete(LoginRequiredMixin, DeleteView):
         return Score.objects.filter(user=self.request.user).order_by('-date')
 
 
+class VideoList(LoginRequiredMixin, ListView):
+    model = Video
+    template_name = 'score_list.html'
+
+    def get_queryset(self):
+        return Video.objects.filter(subject=self.request.user).order_by('-date')
+
+
+class VideoAdd(LoginRequiredMixin, CreateView):
+    model = Video
+    form_class = VideoForm
+    template_name = 'score_form.html'
+    success_url = reverse_lazy('home')
+
+    def get_form_kwargs(self):
+        kwargs = super(VideoAdd, self).get_form_kwargs()
+        kwargs['instance'] = Video(
+            subject=self.request.user,
+            date=datetime.date.today(),
+        )
+        return kwargs
+
+
+class VideoEdit(LoginRequiredMixin, UpdateView):
+    model = Video
+    form_class = VideoForm
+    template_name = 'score_form.html'
+    success_url = reverse_lazy('home')
+
+    def get_queryset(self):
+        return Video.objects.filter(subject=self.request.user).order_by('-date')
+
+
+class VideoDelete(LoginRequiredMixin, DeleteView):
+    model = Video
+    template_name = 'delete.html'
+    success_url = reverse_lazy('home')
+
+    def get_queryset(self):
+        return Video.objects.filter(subject=self.request.user).order_by('-date')
+
+
 class UserHistory(LoginRequiredMixin, StaffuserRequiredMixin, DetailView):
     model = User
     template_name = 'history.html'
@@ -118,3 +163,24 @@ class UserHistory(LoginRequiredMixin, StaffuserRequiredMixin, DetailView):
         context = super(UserHistory, self).get_context_data(**kwargs)
         context['squad'] = context['user'].squad
         return context
+
+
+class CoachNoteAdd(LoginRequiredMixin, StaffuserRequiredMixin, CreateView):
+    model = CoachNote
+    form_class = CoachNoteForm
+    template_name = 'note_form.html'
+
+    def get_success_url(self):
+        return reverse('user-history', kwargs=self.kwargs)
+
+    def get_archer(self):
+        return get_object_or_404(User, pk=self.kwargs['pk'])
+
+    def get_form_kwargs(self):
+        kwargs = super(CoachNoteAdd, self).get_form_kwargs()
+        kwargs['instance'] = CoachNote(
+            author=self.request.user,
+            subject=self.get_archer(),
+            timestamp=timezone.now(),
+        )
+        return kwargs

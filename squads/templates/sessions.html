@@ -1,13 +1,17 @@
 <h2>
     Training log
+    {% if not coach_mode %}
     <small class="right"><a href="{% url 'session-add' %}" class="btn btn-add">Add</a></small>
+    {% endif %}
 </h2>
 {% for session in sessions %}
     <p class="session">
+        {% if not coach_mode %}
         <span class="right">
             <a href="{% url 'session-edit' pk=session.pk %}" class="btn btn-edit">Edit</a>
             <a href="{% url 'session-delete' pk=session.pk %}" class="btn btn-delete">Delete</a>
         </span>
+        {% endif %}
         <strong>{{ session.date }}</strong><br>
         {{ session.venue }}
         {% if session.arrows_shot %}

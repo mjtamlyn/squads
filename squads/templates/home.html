@@ -16,4 +16,12 @@
         {% endif %}
     </div>
 </div>
+<div class="row">
+    <div class="col3">
+        {% include 'videos.html' %}
+        {% if vidoes %}
+        <p><a href="{% url 'video-list' %}" class="btn right">View all</a></p>
+        {% endif %}
+    </div>
+</div>
 {% endblock %}

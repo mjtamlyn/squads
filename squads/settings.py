@@ -17,6 +17,7 @@ ALLOWED_HOSTS = ['oucofa.mjtamlyn.co.uk']
 INSTALLED_APPS = (
     'squads',
     'social_auth',
+    'embed_video',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

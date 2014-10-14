@@ -1,0 +1,23 @@
+{% load embed_video_tags %}
+
+<h2>
+    Videos
+    {% if not coach_mode %}
+    <small class="right"><a href="{% url 'video-add' %}" class="btn btn-add">Add</a></small>
+    {% endif %}
+</h2>
+{% for video in videos %}
+<p class="video">
+    {% if not coach_mode %}
+    <span class="right">
+        <a href="{% url 'video-edit' pk=video.pk %}" class="btn btn-edit">Edit</a>
+        <a href="{% url 'video-delete' pk=video.pk %}" class="btn btn-delete">Delete</a>
+    </span>
+    {% endif %}
+    <strong>{{ video.date }}</strong><br>
+    {% video video.link 'tiny' %}
+    {{ video.notes|linebreaksbr }}
+</p>
+{% empty %}
+<p>Nothing added yet.</p>
+{% endfor %}

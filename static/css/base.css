@@ -189,7 +189,8 @@ label {
 
 input[type=text],
 input[type=date],
-input[type=number] {
+input[type=number],
+input[type=url] {
   width: 100%;
   padding: 10px;
   -webkit-border-radius: 5px;
@@ -250,7 +251,9 @@ nav li a:hover, nav li a:active, nav li a.active {
 }
 
 .session,
-.score {
+.score,
+.note,
+.video {
   background-color: #eeeeee;
   padding: 10px;
   -webkit-border-radius: 5px;
@@ -260,6 +263,20 @@ nav li a:hover, nav li a:active, nav li a.active {
   border-radius: 5px;
   line-height: 1.5em;
   margin: 10px 0;
+}
+
+.note {
+  line-height: 1.2em;
+  overflow: hidden;
+}
+.note img {
+  float: left;
+  margin: 0 5px 0 0;
+}
+
+.video iframe {
+  margin: 5px 0 0 0;
+  display: block;
 }
 
 span.competition {
