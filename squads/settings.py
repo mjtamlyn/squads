@@ -62,6 +62,9 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'collected_static')
 
 
 # Email
+ADMINS = (
+    ('Marc Tamlyn', 'marc.tamlyn@gmail.com'),
+)
 EMAIL_SUBJECT_PREFIX = '[OUCofA Squads] '
 DEFAULT_FROM_EMAIL = 'noreply@oucofa.co.uk'
 EMAIL_HOST = os.environ.get('EMAIL_HOST', 'localhost')
