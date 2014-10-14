@@ -1,1 +1,1 @@
-web: newrelic-admin run-program gunicorn officeadmin.wsgi
+web: newrelic-admin run-program gunicorn squads.wsgi
