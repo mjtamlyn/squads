@@ -1,9 +1,13 @@
+import datetime
+
 from django.conf import settings
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.utils import timezone
 
 from embed_video.fields import EmbedVideoField
+
+from .utils import natural_time
 
 
 class Squad(models.Model):
@@ -15,6 +19,42 @@ class Squad(models.Model):
 
     class Meta:
         ordering = ['pk']
+
+    def stats(self):
+        stats = []
+        today = datetime.date.today()
+        this_week_sunday = today - datetime.timedelta(days=(today.weekday() + 1) % 7)
+        this_week_saturday = this_week_sunday + datetime.timedelta(days=6)
+        last_week_sunday = this_week_sunday - datetime.timedelta(days=7)
+        last_week_saturday = this_week_saturday + datetime.timedelta(days=7)
+        sessions = SessionLog.objects.prefetch_related('sessionsection_set')
+        this_week_sessions = sessions.filter(date__range=[this_week_sunday, this_week_saturday])
+        last_week_sessions = sessions.filter(date__range=[last_week_sunday, last_week_saturday])
+        this_week = models.Prefetch('sessionlog_set', queryset=this_week_sessions, to_attr='this_week')
+        last_week = models.Prefetch('sessionlog_set', queryset=last_week_sessions, to_attr='last_week')
+        users = self.user_set.prefetch_related(this_week, last_week)
+        arrow_counter = lambda sessions: sum(session.arrows_shot or 0 for session in sessions)
+        section_minute_counter = lambda sections: sum(section.time or 0 for section in sections)
+        minute_counter = lambda sessions: sum(section_minute_counter(session.sessionsection_set.all()) for session in sessions)
+        stats.append({
+            'type': 'Arrows shot',
+            'this_week': self.get_stat_order(users, 'this_week', arrow_counter),
+            'last_week': self.get_stat_order(users, 'last_week', arrow_counter),
+        })
+        stats.append({
+            'type': 'All training time',
+            'this_week': self.get_stat_order(users, 'this_week', minute_counter, natural_time),
+            'last_week': self.get_stat_order(users, 'last_week', minute_counter, natural_time),
+        })
+        return stats
+
+    def get_stat_order(self, users, week, func, display_func=None):
+        users = [{'archer': user.first_name, 'value': func(getattr(user, week))} for user in users]
+        users = sorted(users, key=lambda u: u['value'], reverse=True)
+        if display_func is not None:
+            for u in users:
+                u['value'] = display_func(u['value'])
+        return users
 
 
 class User(AbstractUser):
