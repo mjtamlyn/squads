@@ -1,5 +1,7 @@
 import datetime
 
+from django.contrib.auth.views import redirect_to_login
+from django.core.exceptions import PermissionDenied
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.shortcuts import get_object_or_404
 from django.utils import timezone
@@ -162,13 +164,32 @@ class VideoDelete(LoginRequiredMixin, DeleteView):
         return Video.objects.filter(subject=self.request.user).order_by('-date')
 
 
-class UserHistory(LoginRequiredMixin, StaffuserRequiredMixin, DetailView):
+class UserHistory(LoginRequiredMixin, DetailView):
     model = User
     template_name = 'history.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        try:
+            return super(UserHistory, self).dispatch(request, *args, **kwargs)
+        except PermissionDenied:
+            return redirect_to_login(request.get_full_path(),
+                    self.get_login_url(),
+                    self.get_redirect_field_name())
+
+    def get_object(self):
+        user = super(UserHistory, self).get_object()
+        if not self.request.user.is_staff and not user.public_profile:
+            raise PermissionDenied
+        return user
 
     def get_context_data(self, **kwargs):
         context = super(UserHistory, self).get_context_data(**kwargs)
         context['squad'] = context['user'].squad
+        context['coach_mode'] = self.request.user.is_staff
+        if context['coach_mode']:
+            context['archers'] = User.objects.filter(squad=self.object.squad)
+        else:
+            context['archers'] = User.objects.filter(public_profile=True)
         return context
 
 

@@ -19,6 +19,7 @@ class Squad(models.Model):
 
 class User(AbstractUser):
     squad = models.ForeignKey(Squad, blank=True, null=True)
+    public_profile = models.BooleanField(default=False)
 
     def uid(self):
         return self.social_auth.get(provider='facebook').uid

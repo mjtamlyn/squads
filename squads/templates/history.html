@@ -6,7 +6,7 @@
     <div class="col6">
         <h2>{{ squad }} | {{ object.get_full_name }}</h2>
         <div class="archers">
-        {% for archer in squad.user_set.all %}
+        {% for archer in archers %}
             <div class="archer {% if archer == object %}selected{% endif %}">
                 <a href="{% url 'user-history' pk=archer.pk %}">
                     <img src="http://graph.facebook.com/v2.1/{{ archer.uid }}/picture?height=100&width=100">
@@ -17,6 +17,7 @@
         </div>
     </div>
 </div>
+{% if is_staff %}
 <div class="row">
     <div class="col3">
         <h2>
@@ -35,6 +36,7 @@
         {% include 'videos.html' with videos=object.video_set.all coach_mode=True %}
     </div>
 </div>
+{% endif %}
 <div class="row">
     <div class="col3">
         {% include 'sessions.html' with sessions=object.sessionlog_set.all coach_mode=True %}
@@ -43,4 +45,11 @@
         {% include 'scores.html' with scores=object.score_set.all coach_mode=True %}
     </div>
 </div>
+{% if not is_staff %}
+<div class="row">
+    <div class="col3">
+        {% include 'videos.html' with videos=object.video_set.all coach_mode=True %}
+    </div>
+</div>
+{% endif %}
 {% endblock %}

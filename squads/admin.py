@@ -8,7 +8,7 @@ from .models import TrainingCategory, TrainingType, SessionLog, SessionSection, 
 
 class UserAdmin(BaseUserAdmin):
     fieldsets = copy.copy(BaseUserAdmin.fieldsets)
-    fieldsets[0][1]['fields'] += ('squad',)
+    fieldsets[0][1]['fields'] += ('squad', 'public_profile')
 
 
 admin.site.register(TrainingCategory)
