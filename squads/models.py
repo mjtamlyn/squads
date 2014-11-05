@@ -26,7 +26,7 @@ class Squad(models.Model):
         this_week_sunday = today - datetime.timedelta(days=(today.weekday() + 1) % 7)
         this_week_saturday = this_week_sunday + datetime.timedelta(days=6)
         last_week_sunday = this_week_sunday - datetime.timedelta(days=7)
-        last_week_saturday = this_week_saturday + datetime.timedelta(days=7)
+        last_week_saturday = this_week_saturday - datetime.timedelta(days=7)
         sessions = SessionLog.objects.prefetch_related('sessionsection_set')
         this_week_sessions = sessions.filter(date__range=[this_week_sunday, this_week_saturday])
         last_week_sessions = sessions.filter(date__range=[last_week_sunday, last_week_saturday])
