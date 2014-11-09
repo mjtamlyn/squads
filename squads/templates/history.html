@@ -17,7 +17,7 @@
         </div>
     </div>
 </div>
-{% if is_staff %}
+{% if coach_mode %}
 <div class="row">
     <div class="col3">
         <h2>
@@ -45,7 +45,7 @@
         {% include 'scores.html' with scores=object.score_set.all coach_mode=True %}
     </div>
 </div>
-{% if not is_staff %}
+{% if not coach_mode %}
 <div class="row">
     <div class="col3">
         {% include 'videos.html' with videos=object.video_set.all coach_mode=True %}
